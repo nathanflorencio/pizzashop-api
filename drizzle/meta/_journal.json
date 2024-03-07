@@ -22,6 +22,13 @@
       "when": 1708021061015,
       "tag": "0002_brief_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1709781677548,
+      "tag": "0003_majestic_wrecking_crew",
+      "breakpoints": true
     }
   ]
 }
