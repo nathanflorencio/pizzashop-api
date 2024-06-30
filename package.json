@@ -7,7 +7,7 @@
     "build": "bun build src/http/server.ts",
     "start": "NODE_ENV=production bun src/http/server.ts",
     "test": "bun test",
-    "generate": "drizzle-kit generate:pg",
+    "generate": "drizzle-kit generate",
     "migrate": "bun src/db/migrate.ts",
     "seed": "bun src/db/seed.ts",
     "studio": "drizzle-kit studio",
@@ -31,7 +31,7 @@
     "@types/pg": "^8.11.6",
     "chalk": "^5.3.0",
     "drizzle-kit": "^0.22.8",
-    "eslint": "^9.6.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-drizzle": "^0.2.3",
     "pg": "^8.12.0"
   },
