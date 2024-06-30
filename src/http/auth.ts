@@ -1,4 +1,3 @@
-import cookie from '@elysiajs/cookie'
 import jwt from '@elysiajs/jwt'
 import { env } from '../env'
 import { Elysia, t, type Static } from 'elysia'
@@ -27,25 +26,23 @@ export const auth = new Elysia()
       schema: jwtPayload,
     }),
   )
-  .use(cookie())
-  .derive(({ jwt, setCookie, removeCookie, cookie }) => {
+  .derive({ as: 'scoped' }, ({ jwt, cookie: { auth } }) => {
     return {
       signUser: async (payload: Static<typeof jwtPayload>) => {
         const token = await jwt.sign(payload)
 
-        setCookie('auth', token, {
-          httpOnly: true,
-          maxAge: 60 * 60 * 24 * 7, // 7 days
-          path: '/',
-        })
+        auth.value = token
+        auth.httpOnly = true
+        auth.maxAge = 60 * 60 * 24 * 7 // 7 days
+        auth.path = '/'
       },
 
-      signOut: () => {
-        removeCookie('auth')
+      signOut: async () => {
+        auth.remove()
       },
 
       getCurrentUser: async () => {
-        const payload = await jwt.verify(cookie.auth)
+        const payload = await jwt.verify(auth.value)
 
         if (!payload) {
           throw new UnauthorizedError()
